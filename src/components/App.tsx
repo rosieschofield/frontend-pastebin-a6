@@ -1,9 +1,9 @@
-import { MyComponent } from "./MyComponent";
+import { DisplayCodeSnippet } from "./DisplayCodeSnippet";
 import axios from "axios";
 import { useState } from "react";
 import "./App.css";
 
-interface Snippets {
+export interface Snippet {
     id: number;
     title: string;
     code_snippet: string;
@@ -11,7 +11,7 @@ interface Snippets {
 }
 
 function App() {
-    const [list, setList] = useState<Snippets[]>([]);
+    const [list, setList] = useState<Snippet[]>([]);
 
     async function fetchCodeSnippets() {
         const res = await axios.get("https://pastebin-a6.onrender.com/");
@@ -24,10 +24,21 @@ function App() {
 
     return (
         <div className="App">
-            <MyComponent />
-            {list.map((elem) => (
-                <li key={elem.id}>{elem.title}</li>
-            ))}
+            <textarea></textarea>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Code</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {list.map((elem) => (
+                        <DisplayCodeSnippet key={elem.id} codeSnippet={elem} />
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
