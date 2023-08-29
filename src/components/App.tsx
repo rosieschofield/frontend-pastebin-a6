@@ -10,21 +10,58 @@ export interface Snippet {
     date: string;
 }
 
+export interface NewSnippet {
+    title?: string;
+    code_snippet: string;
+    date: string;
+}
+
+export const baseUrl =
+    process.env.NODE_ENV === "production"
+        ? "https://pastebin-a6.onrender.com"
+        : "http://localhost:4000";
+
 function App() {
     const [list, setList] = useState<Snippet[]>([]);
+    const [titleText, setTitleText] = useState<string>("");
+    const [codeText, setCodeText] = useState<string>("");
+    const [date, setDate] = useState<string>("");
 
     async function fetchCodeSnippets() {
-        const res = await axios.get("https://pastebin-a6.onrender.com/");
+        const res = await axios.get(baseUrl + "/");
         const listOfSnippets = await res.data;
         setList(listOfSnippets);
         console.log(list);
     }
 
-    fetchCodeSnippets();
+    async function handleSubmitNewSnippet() {
+        const newSnippet: NewSnippet = {
+            title: titleText,
+            code_snippet: codeText,
+            date: date,
+        };
+        await axios.post(baseUrl + "/", newSnippet);
+    }
 
     return (
         <div className="App">
-            <textarea></textarea>
+            <input
+                type="text"
+                placeholder="add optional title"
+                onChange={(e) => setTitleText(e.target.value)}
+                value={titleText}
+            ></input>
+            <textarea
+                onChange={(e) => setCodeText(e.target.value)}
+                value={codeText}
+            ></textarea>
+            <input
+                type="text"
+                onChange={(e) => setDate(e.target.value)}
+                value={date}
+            ></input>
+            <button onClick={handleSubmitNewSnippet}>Submit</button>
+            <button onClick={fetchCodeSnippets}>Refresh</button>
             <table>
                 <thead>
                     <tr>
