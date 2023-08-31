@@ -1,6 +1,6 @@
 import { DisplayCodeSnippet } from "./DisplayCodeSnippet";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 export interface Snippet {
@@ -26,13 +26,18 @@ function App() {
     const [titleText, setTitleText] = useState<string>("");
     const [codeText, setCodeText] = useState<string>("");
     const [date, setDate] = useState<string>("");
+    const [aux, setAux] = useState(0);
 
     async function fetchCodeSnippets() {
         const res = await axios.get(baseUrl + "/");
         const listOfSnippets = await res.data;
         setList(listOfSnippets);
-        console.log(list);
+        console.log("adsfdas");
     }
+
+    useEffect(() => {
+        fetchCodeSnippets();
+    }, [aux]);
 
     async function handleSubmitNewSnippet() {
         const newSnippet: NewSnippet = {
@@ -41,6 +46,7 @@ function App() {
             date: date,
         };
         await axios.post(baseUrl + "/", newSnippet);
+        setAux((aux) => aux++);
     }
 
     return (

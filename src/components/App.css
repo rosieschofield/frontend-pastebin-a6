@@ -1,3 +1,12 @@
 html {
     background: #f8f8f8;
 }
+
+.display-linebreak {
+    white-space: pre-line;
+}
+
+table td {
+    border: 1px solid black;
+    padding: 10px;
+}
