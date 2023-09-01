@@ -51,16 +51,21 @@ function App() {
 
     return (
         <div className="App">
+            <p>Title (optional)</p>
             <input
                 type="text"
                 placeholder="add optional title"
                 onChange={(e) => setTitleText(e.target.value)}
                 value={titleText}
             ></input>
+            <p>Code</p>
             <textarea
+                placeholder="write your code here..."
                 onChange={(e) => setCodeText(e.target.value)}
                 value={codeText}
             ></textarea>
+            <p>Date (please input in format YYYY-MM-DD)</p>
+            <br />
             <input
                 type="text"
                 onChange={(e) => setDate(e.target.value)}
