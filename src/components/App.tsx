@@ -1,6 +1,6 @@
 import { DisplayCodeSnippet } from "./DisplayCodeSnippet";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 export interface Snippet {
@@ -26,13 +26,18 @@ function App() {
     const [titleText, setTitleText] = useState<string>("");
     const [codeText, setCodeText] = useState<string>("");
     const [date, setDate] = useState<string>("");
+    const [aux, setAux] = useState(0);
 
     async function fetchCodeSnippets() {
         const res = await axios.get(baseUrl + "/");
         const listOfSnippets = await res.data;
         setList(listOfSnippets);
-        console.log(list);
+        console.log("adsfdas");
     }
+
+    useEffect(() => {
+        fetchCodeSnippets();
+    }, [aux]);
 
     async function handleSubmitNewSnippet() {
         const newSnippet: NewSnippet = {
@@ -41,20 +46,26 @@ function App() {
             date: date,
         };
         await axios.post(baseUrl + "/", newSnippet);
+        setAux((prevAux) => prevAux + 1);
     }
 
     return (
         <div className="App">
+            <p>Title (optional)</p>
             <input
                 type="text"
                 placeholder="add optional title"
                 onChange={(e) => setTitleText(e.target.value)}
                 value={titleText}
             ></input>
+            <p>Code</p>
             <textarea
+                placeholder="write your code here..."
                 onChange={(e) => setCodeText(e.target.value)}
                 value={codeText}
             ></textarea>
+            <p>Date (please input in format YYYY-MM-DD)</p>
+            <br />
             <input
                 type="text"
                 onChange={(e) => setDate(e.target.value)}

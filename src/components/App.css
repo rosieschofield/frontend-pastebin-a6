@@ -1,3 +1,42 @@
 html {
     background: #f8f8f8;
 }
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 20px;
+}
+
+.display-linebreak {
+    white-space: pre-line;
+}
+
+/* Style for individual components */
+input[type="text"],
+textarea {
+    margin-bottom: 10px; /* Add some spacing between input fields */
+}
+
+button {
+    margin-top: 10px; /* Add some spacing above buttons */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Add spacing above the table */
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Add some spacing between table rows */
+tr {
+    margin-bottom: 10px;
+}
