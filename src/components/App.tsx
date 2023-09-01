@@ -46,7 +46,7 @@ function App() {
             date: date,
         };
         await axios.post(baseUrl + "/", newSnippet);
-        setAux((aux) => aux++);
+        setAux((prevAux) => prevAux + 1);
     }
 
     return (
